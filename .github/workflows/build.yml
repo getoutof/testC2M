@@ -82,7 +82,7 @@ jobs:
       - name: Setup app advanced
         run: |
           ./init --env=Development
-          sed -i "s/'dsn' => 'mysql:host=127.0.0.1;dbname=yii2advanced_test'/'dsn' => 'mysql:host=127.0.0.1;dbname=yii2advanced_test'/" common/config/test-local.php
+          sed -i "s/'dsn' => 'mysql:host=mysql;dbname=yii2advanced_test'/'dsn' => 'mysql:host=mysql;dbname=yii2advanced_test'/" common/config/test-local.php
           sed -i "/'db'/a 'username' => 'yii2advanced'," common/config/test-local.php
           sed -i "/'db'/a 'password' => 'secret'," common/config/test-local.php
           sed -i "s/'cookieValidationKey' => ''/'cookieValidationKey' => 'testkey'/" frontend/config/main.php
