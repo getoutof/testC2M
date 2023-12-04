@@ -101,3 +101,7 @@ a.desc:after {
 {
     text-decoration: none;
 }
+
+.width100 {
+    width: 100%;
+}
