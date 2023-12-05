@@ -3,6 +3,7 @@
 /** @var yii\web\View $this */
 
 use frontend\models\GitForm;
+use yii\bootstrap5\Modal;
 use yii\helpers\Html;
 use yii\bootstrap5\ActiveForm;
 use yii\jui\DatePicker;
@@ -37,7 +38,9 @@ $this->title = 'My Yii Application';
                 ->widget(DatePicker::classname(), [
                     'options' => [
                         'class' => 'form-control'
-                    ]
+                    ],
+                    'language' => 'ru',
+                    'dateFormat' => 'php:Y-m-d',
                 ])->label('С')
             ?>
             <?= $form->field($gitForm, 'to')
@@ -45,6 +48,8 @@ $this->title = 'My Yii Application';
                     'options' => [
                         'class' => 'form-control'
                     ],
+                    'language' => 'ru',
+                    'dateFormat' => 'php:Y-m-d',
                 ])->label('По')
             ?>
 
@@ -63,12 +68,44 @@ $this->title = 'My Yii Application';
                 </tr>
             </thead>
             <tbody>
-                <?php foreach($gitCommitTable as $gitCommit) { ?>
+                <?php
+                    $i = 1;
+                    foreach($gitCommitTable as $fileName => $gitCommit) { ?>
                     <tr>
-                        <td scope="row"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td scope="row"><?= $i++ ?></td>
+                        <td><?= $fileName ?></td>
+                        <td>
+                            <?= count($gitCommit['commits']) ?>
+                            <?php
+                                Modal::begin([
+                                    'title' => 'Коммиты',
+                                    'toggleButton' => ['label' => 'Показать'],
+                                ]);
+
+                                foreach ($gitCommit['commits'] as $commit) {
+                                    echo $commit;
+                                    echo '<br>';
+                                }
+
+                                Modal::end();
+                            ?>
+                        </td>
+                        <td>
+                            <?= count($gitCommit['authors']) ?>
+                            <?php
+                            Modal::begin([
+                                'title' => 'Авторы',
+                                'toggleButton' => ['label' => 'Показать'],
+                            ]);
+
+                            foreach ($gitCommit['authors'] as $author) {
+                                echo $author;
+                                echo '<br>';
+                            }
+
+                            Modal::end();
+                            ?>
+                        </td>
                     </tr>
                 <?php } ?>
             </tbody>
